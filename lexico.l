@@ -27,7 +27,7 @@ NodoAST *raiz;
 
 letra [a-zñA-ZÑ]+
 numero [0-9]+
-booleano ("verdadero"|"falso")
+booleano ("verdadero"|"falso"|"true"|"false")
 decimal [0-9]+"."[0-9]+
 caracter "\'"("\\")?({letra}|{numero})"\'"
 iden {letra}({letra}|{numero}|"_")*
@@ -51,6 +51,8 @@ INITIAL
 "char"       {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_char; }
 "string"     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_string; }
 
+"arreglo"     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_arreglo; }
+
 
 "!"     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_not   ; }
 "="     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_igual   ; }    
@@ -63,8 +65,8 @@ INITIAL
 "!="     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_diferenciacion; }
 "<="     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_menorigual   ; }
 ">="     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_mayorigual   ; }
-"++"          {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return aumento; }
-"--"          {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return decremento; }
+"++"     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return aumento; }
+"--"     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return decremento; }
 
 
 
@@ -77,7 +79,8 @@ INITIAL
 {iden}       {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return identificador;}
 
 
-
+"{"     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return llavei; }
+"}"     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return llaved; }
 "["          {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return cori; }
 "]"          {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return cord; }
 ","          {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return coma; }

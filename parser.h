@@ -78,7 +78,10 @@ extern int yydebug;
     multi = 288,
     division = 289,
     potencia = 290,
-    puntocoma = 291
+    puntocoma = 291,
+    llavei = 292,
+    llaved = 293,
+    tk_arreglo = 294
   };
 #endif
 
@@ -96,7 +99,7 @@ class NodoAST *nodito;
 
 
 
-#line 100 "parser.h" /* yacc.c:1909  */
+#line 103 "parser.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
