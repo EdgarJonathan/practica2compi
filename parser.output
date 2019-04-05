@@ -1,20 +1,6 @@
-No terminales inútiles en la gramática
-
-   LISTA_AUMENTO
-   AUMENTO
-
-
 Terminales no usados en la gramática
 
    tk_not
-
-
-Reglas inútiles en la gramática
-
-   89 LISTA_AUMENTO: LISTA_AUMENTO AUMENTO
-   90              | AUMENTO
-
-   91 AUMENTO: OPERACION puntocoma
 
 
 Estado 22 conflictos: 1 desplazamiento/reducción

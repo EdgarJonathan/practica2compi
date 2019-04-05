@@ -97,8 +97,7 @@ class NodoAST *nodito;
 %type<nodito> REPETIR;
 %type<nodito> FOR;
 %type<nodito> FOR_COND;
-%type<nodito> LISTA_AUMENTO;
-%type<nodito> AUMENTO;
+
 
 
 %left tk_or
@@ -164,23 +163,6 @@ CUERPO: LISTA_DECLARACION
 
 
 
-LISTA_AUMENTO: LISTA_AUMENTO AUMENTO
-                {
-                    $$=$1;
-                    $$->add(*$2);
-                }
-             | AUMENTO
-                {
-                    $$ = new NodoAST(@1.first_line, @1.first_column,"LISTA_AUMENTO","");
-                    $$->add(*$1);
-                }
-;
-
-AUMENTO: OPERACION puntocoma
-          {
-            $$=$1;
-          }
-;
 
 
 
