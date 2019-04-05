@@ -58,6 +58,10 @@ class NodoAST *nodito;
 %token<TEXT> llavei llaved;
 %token<TEXT> tk_arreglo;
 %token<TEXT> tk_imprimir;
+%token<TEXT> tk_show;
+%token<TEXT> tk_if;
+%token<TEXT> tk_else;
+%token<TEXT> tk_para tk_repetir;
 
 
 
@@ -81,6 +85,20 @@ class NodoAST *nodito;
 %type<nodito> LISTA_CUERPO;
 %type<nodito> LISTA_IMPRIMIR;
 %type<nodito> IMPRIMIR;
+%type<nodito> OPERACION;
+%type<nodito> LISTA_MOSTRAR;
+%type<nodito> MOSTRAR;
+%type<nodito> VALOR_TITULO;
+%type<nodito> LISTA_IF;
+%type<nodito> ELSE;
+%type<nodito> SI;
+%type<nodito> LISTA_FOR;
+%type<nodito> LISTA_REPETIR;
+%type<nodito> REPETIR;
+%type<nodito> FOR;
+%type<nodito> FOR_COND;
+%type<nodito> LISTA_AUMENTO;
+%type<nodito> AUMENTO;
 
 
 %left tk_or
@@ -126,10 +144,157 @@ CUERPO: LISTA_DECLARACION
           {
             $$=$1;
           } 
-          
+        | LISTA_MOSTRAR
+          {
+            $$=$1;
+          }    
+        | LISTA_IF
+          {
+            $$=$1;
+          } 
+        | LISTA_FOR
+          {
+            $$=$1;
+          }
+        | LISTA_REPETIR
+          {
+            $$=$1;
+          }  
+        | LISTA_AUMENTO  
+          {
+            $$=$1;
+          }
 ;
 
 
+
+LISTA_AUMENTO: LISTA_AUMENTO AUMENTO
+                {
+                    $$=$1;
+                    $$->add(*$2);
+                }
+             | AUMENTO
+                {
+                    $$ = new NodoAST(@1.first_line, @1.first_column,"LISTA_AUMENTO","");
+                    $$->add(*$1);
+                }
+;
+
+AUMENTO: OPERACION puntocoma
+          {
+            $$=$1;
+          }
+;
+
+
+
+LISTA_REPETIR: LISTA_REPETIR REPETIR 
+                {
+                    $$=$1;
+                    $$->add(*$2);
+                }
+             | REPETIR
+                {
+                    $$ = new NodoAST(@1.first_line, @1.first_column,"LISTA_REPETIR","");
+                    $$->add(*$1);
+                } 
+;
+
+REPETIR: tk_repetir pari CONT_VALOR pard llavei LISTA_CUERPO llaved
+             {
+                NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"REPETIR","");
+                nod->add(*$3); 
+                nod->add(*$6);
+                $$=nod;
+             }
+       | tk_repetir pari CONT_VALOR pard llavei              llaved
+             {
+                NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"REPETIR","");
+                nod->add(*$3);
+                $$=nod;
+             }
+;
+
+
+LISTA_FOR: LISTA_FOR FOR
+            {
+              $$=$1;
+              $$->add(*$2);
+            }
+         | FOR
+            {
+              $$ = new NodoAST(@1.first_line, @1.first_column,"LISTA_FOR","");
+              $$->add(*$1);
+            }
+;
+
+FOR:  tk_para pari FOR_COND  CONT_VALOR puntocoma OPERACION pard llavei LISTA_CUERPO llaved
+        {
+                NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"FOR","");
+                nod->add(*$3); 
+                nod->add(*$4);
+                nod->add(*$6);
+                nod->add(*$9);
+                $$=nod;
+        }
+     |tk_para pari FOR_COND  CONT_VALOR puntocoma OPERACION pard llavei              llaved
+        {
+                NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"FOR","");
+                nod->add(*$3); 
+                nod->add(*$4);
+                nod->add(*$6);
+                $$=nod;
+        }
+;
+
+
+
+FOR_COND: ASIGNACION
+          {
+            $$=$1;
+          } 
+        | DECLARACION
+          {
+            $$=$1;
+          } 
+;
+
+
+
+LISTA_MOSTRAR: LISTA_MOSTRAR MOSTRAR
+                {
+                    $$=$1;
+                    $$->add(*$2);
+                }
+             | MOSTRAR
+                {
+                    $$ = new NodoAST(@1.first_line, @1.first_column,"LISTA_MOSTRAR","");
+                    $$->add(*$1);
+                }  
+;
+
+
+MOSTRAR: tk_show pari VALOR_TITULO coma CONT_VALOR pard puntocoma
+          {
+                NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"SHOW","");
+                nod->add(*$3); 
+                nod->add(*$5);
+                $$=nod;
+          }
+;
+
+
+
+VALOR_TITULO: identificador
+              { $$ = new NodoAST(@1.first_line, @1.first_column,"iden",$1);}
+            | cadena
+              { $$ = new NodoAST(@1.first_line, @1.first_column,"cadena",$1);}
+            | identificador LISTA_DIMENSION  
+               {
+                  $$ = new NodoAST(@1.first_line, @1.first_column,"iden",$1);
+                  $$->add(*$2);
+               } 
+;
 
 LISTA_IMPRIMIR: LISTA_IMPRIMIR IMPRIMIR
                   {
@@ -269,12 +434,12 @@ LISTA_FILA: LISTA_FILA coma CONT_VALOR
 ;
 
 
-LISTA_DIMENSION: LISTA_DIMENSION cori CONT_VALOR cord
+LISTA_DIMENSION: LISTA_DIMENSION cori OPERACION cord
                   {
                      $$=$1;
                      $$->add(*$3);
                   }
-               | cori CONT_VALOR cord  
+               | cori OPERACION cord  
                   {
                     $$ =  new NodoAST(@1.first_line, @1.first_column,"Lista_Dimension","");
                     $$->add(*$2);
@@ -369,39 +534,55 @@ CONT_VALOR: CONT_VALOR tk_and CONT_VALOR
                 NodoAST *nod = new NodoAST(@2.first_line, @2.first_column,"diferenciacion",$2); 
                 nod->add(*$1); nod->add(*$3); $$=nod;
             }
+          | OPERACION;
+          
+;          
 
-          | CONT_VALOR suma CONT_VALOR
+OPERACION: OPERACION suma OPERACION
             {
                 NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"suma",$2); 
                 nod->add(*$1); nod->add(*$3); $$=nod;
             }
-          | CONT_VALOR menos CONT_VALOR
+          | OPERACION menos OPERACION
             {
                 NodoAST *nod = new NodoAST(@2.first_line, @2.first_column,"resta",$2); 
                 nod->add(*$1); nod->add(*$3); $$=nod;
             }
-          | CONT_VALOR multi CONT_VALOR
+          | OPERACION multi OPERACION
             {
                 NodoAST *nod = new NodoAST(@2.first_line, @2.first_column,"por",$2); 
                 nod->add(*$1); nod->add(*$3); $$=nod;
             }
-          | CONT_VALOR division CONT_VALOR
+          | OPERACION division OPERACION
             {
                 NodoAST *nod = new NodoAST(@2.first_line, @2.first_column,"div",$2); 
                 nod->add(*$1); nod->add(*$3); $$=nod;
             }
-          | CONT_VALOR potencia CONT_VALOR
+          | OPERACION potencia OPERACION
             {
                 NodoAST *nod = new NodoAST(@2.first_line, @2.first_column,"potencia",$2); 
                 nod->add(*$1); nod->add(*$3); $$=nod;
             }
-          | menos CONT_VALOR %prec UMINUS
+          | menos OPERACION %prec UMINUS
                 { $$ = new NodoAST(@1.first_line, @1.first_column,"menos",$1); $$->add(*$2);}
-          | pari CONT_VALOR pard
+
+          | pari OPERACION pard
             {$$=$2;}
+
+          | OPERACION aumento
+            {
+                NodoAST *nod = new NodoAST(@2.first_line, @2.first_column,"aumento",$2); 
+                nod->add(*$1); $$=nod;
+            }
+          | OPERACION decremento
+            {
+                NodoAST *nod = new NodoAST(@2.first_line, @2.first_column,"decremento",$2); 
+                nod->add(*$1); $$=nod;
+            }
+
           | VALOR
             {$$=$1;}
-;          
+;
 
 VALOR: identificador
         { $$ = new NodoAST(@1.first_line, @1.first_column,"iden",$1);}
@@ -421,6 +602,63 @@ VALOR: identificador
          $$->add(*$2);
       }
 ;     
+
+
+LISTA_IF: LISTA_IF SI
+          {
+            $$=$1;
+            $$->add(*$2);
+          }
+        | SI
+          {
+            $$ = new NodoAST(@1.first_line, @1.first_column,"LISTA_IF","");
+            $$->add(*$1);
+          } 
+;
+
+
+
+SI: tk_if pari CONT_VALOR pard llavei LISTA_CUERPO  ELSE
+       {
+          NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"IF",""); 
+          nod->add(*$3);
+          nod->add(*$6);
+          nod->add(*$7);
+          $$=nod;
+       } 
+    |tk_if pari CONT_VALOR pard llavei   ELSE  
+    {
+          NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"IF",""); 
+          nod->add(*$3); 
+          nod->add(*$6);
+          $$=nod;
+    } 
+;
+
+
+ELSE: llaved tk_else SI
+      {
+          NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"ELSE_IF",""); 
+          nod->add(*$3);
+          $$=nod;
+      } 
+    | llaved tk_else llavei LISTA_CUERPO llaved
+      {
+          NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"ELSE",""); 
+          nod->add(*$4);
+          $$=nod;
+      } 
+    |  llaved  tk_else llavei  llaved
+      {
+          NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"ELSE_VACIO :v","");
+          $$=nod;
+      } 
+    | llaved
+      {
+          NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"LLAVE_QUE_CIERRA :v","");
+          $$=nod;
+      }
+;
 
 
 %%

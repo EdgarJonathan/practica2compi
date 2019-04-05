@@ -1,6 +1,7 @@
 
 // pendientes
-// aumento y decremento
+// crear un lista_instrucciones 
+// si las variables solo pueden ser globales
 
 INICIO: LISTA_CUERPO
 ;
@@ -13,8 +14,70 @@ LISTA_CUERPO: LISTA_CUERPO CUERPO
 CUERPO : LISTA_DECLARACION 
        | LISTA_ASIGNACION
        | LISTA_IMPRIMIR
+       | LISTA_MOSTRAR
+       | LISTA_IF
+       | LISTA_FOR
+       | LISTA_REPETIR
+       | LISTA_AUMENTO
 ;
- 
+
+LISTA_AUMENTO: LISTA_AUMENTO AUMENTO
+             | AUMENTO
+;
+
+AUMENTO: OPERACION
+;
+
+
+LISTA_REPETIR: LISTA_REPETIR REPETIR 
+             | REPETIR
+;
+
+REPETIR: tk_repetir pari CONT_VALOR pard llavei LISTA_CUERPO llavei
+       | tk_repetir pari CONT_VALOR pard llavei              llavei
+;
+
+
+LISTA_FOR: LISTA_FOR FOR
+         | FOR
+;
+
+FOR:  tk_para pari FOR_COND puntocoma CONT_VALOR puntocoma OPERACION pard llavei LISTA_CUERPO llaved
+     |tk_para pari FOR_COND puntocoma CONT_VALOR puntocoma OPERACION pard llavei              llaved
+;
+
+
+
+FOR_COND: ASIGNACION
+        | DECLARACION
+;
+
+
+LISTA_IF: LISTA_IF SI
+        | SI
+;
+
+SI:  tk_if pari CONT_VALOR pard llavei LISTA_CUERPO  ELSE
+    |tk_if pari CONT_VALOR pard llavei               ELSE 
+;
+
+
+ELSE: llaved tk_else SI
+    | llaved tk_else llavei LISTA_CUERPO llaved
+    | llaved tk_else llavei              llaved
+    | llaved
+;
+
+              
+LISTA_MOSTRAR: LISTA_MOSTRAR MOSTRAR
+             | MOSTRAR
+;
+
+
+MOSTRAR: tk_show pari cadena coma CONT_VALOR pard puntocoma
+;
+
+
 
 LISTA_IMPRIMIR: LISTA_IMPRIMIR IMPRIMIR
               | IMPRIMIR            
@@ -57,8 +120,8 @@ LISTA_FILA: LISTA_FILA coma CONT_VALOR
           | CONT_VALOR
 ;          
 
-LISTA_DIMENSION: LISTA_DIMENSION cori CONT_VALOR cord
-               | cori CONT_VALOR cord         
+LISTA_DIMENSION: LISTA_DIMENSION cori OPERACION cord
+               | cori OPERACION cord         
 ;
 
 
@@ -83,16 +146,22 @@ CONT_VALOR: CONT_VALOR tk_and CONT_VALOR
           | CONT_VALOR tk_menorigual CONT_VALOR
           | CONT_VALOR tk_igualacion CONT_VALOR
           | CONT_VALOR tk_diferenciacion CONT_VALOR
+          | OPERACION
+;  
 
-          | CONT_VALOR suma CONT_VALOR
-          | CONT_VALOR menos CONT_VALOR
-          | CONT_VALOR multi CONT_VALOR
-          | CONT_VALOR division CONT_VALOR
-          | CONT_VALOR potencia CONT_VALOR
-          | menos CONT_VALOR
-          | pari CONT_VALOR pard
+
+OPERACION;  OPERACION suma OPERACION
+          | OPERACION menos OPERACION
+          | OPERACION multi OPERACION
+          | OPERACION division OPERACION
+          | OPERACION potencia OPERACION
+          | menos OPERACION
+          | pari OPERACION pard
+          | OPERACION aumento
+          | OPERACION decremento
           | VALOR
-;          
+;
+
 
 VALOR: identificador
      |  cadena

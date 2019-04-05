@@ -83,7 +83,12 @@ extern int yydebug;
     llaved = 293,
     tk_arreglo = 294,
     tk_imprimir = 295,
-    UMINUS = 296
+    tk_show = 296,
+    tk_if = 297,
+    tk_else = 298,
+    tk_para = 299,
+    tk_repetir = 300,
+    UMINUS = 301
   };
 #endif
 
@@ -101,7 +106,7 @@ class NodoAST *nodito;
 
 
 
-#line 105 "parser.h" /* yacc.c:1909  */
+#line 110 "parser.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
