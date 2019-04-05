@@ -1,11 +1,61 @@
 
+// pendientes
+// aumento y decremento
+
+INICIO: LISTA_CUERPO
+;
+
+
+LISTA_CUERPO: LISTA_CUERPO CUERPO
+            | CUERPO
+;
+
+CUERPO : LISTA_DECLARACION 
+       | LISTA_ASIGNACION
+       | LISTA_IMPRIMIR
+;
+ 
+
+LISTA_IMPRIMIR: LISTA_IMPRIMIR IMPRIMIR
+              | IMPRIMIR            
+;
+
+IMPRIMIR: tk_imprimir pari CONT_VALOR pard puntocoma
+;
+
+LISTA_ASIGNACION: LISTA_ASIGNACION ASIGNACION
+                | ASIGNACION
+;
+
+ASIGNACION: LISTA_VAR tk_igual CONT_VALOR puntocoma
+;
+
+LISTA_VAR: LISTA_VAR tk_igual VAR
+         | VAR
+;
+
+VAR: identificador
+   | identificador LISTA_DIMENSION 
+;
+
+
 LISTA_DECLARACION: LISTA_DECLARACION DECLARACION
                  | DECLARACION
 ;
 
 DECLARACION: TIPO_DATO LISTA_ID tk_igual CONT_VALOR
+           | TIPO_DATO LISTA_ID
            | TIPO_DATO tk_arreglo LISTA_ID LISTA_DIMENSION
+           | TIPO_DATO tk_arreglo LISTA_ID LISTA_DIMENSION ARRAY
 ;
+
+ARRAY: ARRAY coma llavei LISTA_FILA llaved
+     |llavei LISTA_FILA llaved
+;
+
+LISTA_FILA: LISTA_FILA coma CONT_VALOR
+          | CONT_VALOR
+;          
 
 LISTA_DIMENSION: LISTA_DIMENSION cori CONT_VALOR cord
                | cori CONT_VALOR cord         
@@ -20,13 +70,9 @@ TIPO_DATO: tk_string
 ;
 
 
-
-
 LISTA_ID: LISTA_ID coma identificador
         | identificador
 ;
-
-
 
 CONT_VALOR: CONT_VALOR tk_and CONT_VALOR
           | CONT_VALOR tk_or  CONT_VALOR
@@ -54,4 +100,5 @@ VALOR: identificador
      |  decimal
      |  booleano
      |  caracter
+     | identificador LISTA_DIMENSION
 ;     

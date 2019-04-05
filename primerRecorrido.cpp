@@ -213,6 +213,8 @@ Resultado primerRecorrido:: recorrer( NodoAST *raiz)
             }
             break;
     }
+
+
     return r;
 }
 

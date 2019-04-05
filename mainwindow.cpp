@@ -100,7 +100,7 @@ void MainWindow::on_actionAbrir_Archivo_triggered()
                     "Text Files (*.li)"
                     );
 
-        if(fileName.isEmpty())
+        if(!fileName.isEmpty())
         {
             QFile file(fileName);
 

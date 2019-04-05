@@ -57,6 +57,7 @@ class NodoAST *nodito;
 %token<TEXT> puntocoma;
 %token<TEXT> llavei llaved;
 %token<TEXT> tk_arreglo;
+%token<TEXT> tk_imprimir;
 
 
 
@@ -70,16 +71,131 @@ class NodoAST *nodito;
 %type<nodito> VALOR;
 %type<nodito> LISTA_DECLARACION;
 %type<nodito> LISTA_DIMENSION;
+%type<nodito> ARRAY;
+%type<nodito> LISTA_FILA;
+%type<nodito> CUERPO;
+%type<nodito> LISTA_ASIGNACION;
+%type<nodito> ASIGNACION;
+%type<nodito> LISTA_VAR;
+%type<nodito> VAR;
+%type<nodito> LISTA_CUERPO;
+%type<nodito> LISTA_IMPRIMIR;
+%type<nodito> IMPRIMIR;
 
+
+%left tk_or
+%left tk_and
+%left tk_not
+%left tk_diferenciacion tk_igualacion tk_mayorque tk_menorque tk_menorigual tk_mayorigual
 %left suma menos
 %left multi division
 %left potencia
+%left UMINUS
+
 
 %start INICIO
 %%
 
-INICIO : LISTA_DECLARACION { raiz =$$;}
+INICIO: LISTA_CUERPO { raiz =$$;} 
 ;
+
+
+LISTA_CUERPO: LISTA_CUERPO CUERPO
+              {
+                $$=$1;
+                $$->add(*$2);
+              }
+
+            | CUERPO
+              {
+                $$ = new NodoAST(@1.first_line, @1.first_column,"INICIO","");
+                $$->add(*$1);
+              }
+;
+
+CUERPO: LISTA_DECLARACION 
+          {
+            $$=$1;
+          }
+       | LISTA_ASIGNACION
+          {
+            $$=$1;
+          }
+          
+       | LISTA_IMPRIMIR  
+          {
+            $$=$1;
+          } 
+          
+;
+
+
+
+LISTA_IMPRIMIR: LISTA_IMPRIMIR IMPRIMIR
+                  {
+                    $$=$1;
+                    $$->add(*$2);
+                  }
+              | IMPRIMIR 
+                  {
+                    $$ = new NodoAST(@1.first_line, @1.first_column,"LISTA_IMPRIMIR","");
+                    $$->add(*$1);
+                  }           
+;
+
+IMPRIMIR: tk_imprimir pari CONT_VALOR pard puntocoma
+           {
+                NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"IMPRIMIR",""); 
+                nod->add(*$3);
+                $$=nod;
+           }
+;
+
+LISTA_ASIGNACION: LISTA_ASIGNACION ASIGNACION
+                  {
+                    $$=$1;
+                    $$->add(*$2);
+                  }
+                | ASIGNACION
+                  {
+                    $$ = new NodoAST(@1.first_line, @1.first_column,"LISTA_ASIGNACION","");
+                    $$->add(*$1);
+                  }
+;
+
+ASIGNACION: LISTA_VAR tk_igual CONT_VALOR puntocoma
+            {
+                NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"ASIGNACION",""); 
+                nod->add(*$1); 
+                nod->add(*$3);
+                $$=nod;
+            }
+
+;
+
+LISTA_VAR: LISTA_VAR tk_igual VAR
+            {
+              $$=$1;
+              $$->add(*$3);
+            }
+         | VAR
+            {
+              $$ = new NodoAST(@1.first_line, @1.first_column,"LISTA_VAR","");
+              $$->add(*$1);
+            }
+;
+
+VAR: identificador
+      { $$ = new NodoAST(@1.first_line, @1.first_column,"iden",$1);}
+   | identificador LISTA_DIMENSION 
+      {
+         $$ = new NodoAST(@1.first_line, @1.first_column,"iden",$1);
+         $$->add(*$2);
+      }
+;
+
+
+
 
 LISTA_DECLARACION: LISTA_DECLARACION DECLARACION
                   {
@@ -102,6 +218,13 @@ DECLARACION: TIPO_DATO LISTA_ID tk_igual CONT_VALOR puntocoma
                 nod->add(*$4);
                 $$=nod;
               }
+           | TIPO_DATO LISTA_ID 
+               {
+                NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"DECLARACIONVAR",""); 
+                nod->add(*$1); 
+                nod->add(*$2);
+                $$=nod;
+              }  
            | TIPO_DATO tk_arreglo LISTA_ID LISTA_DIMENSION puntocoma
               {
                 NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"DECLARACIONARRAY",""); 
@@ -110,8 +233,41 @@ DECLARACION: TIPO_DATO LISTA_ID tk_igual CONT_VALOR puntocoma
                 nod->add(*$4);
                 $$=nod;
               }
-
+           | TIPO_DATO tk_arreglo LISTA_ID LISTA_DIMENSION tk_igual llavei ARRAY llaved puntocoma
+              {
+                NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"DECLARACIONARRAY",""); 
+                nod->add(*$1); 
+                nod->add(*$3); 
+                nod->add(*$4);
+                nod->add(*$7);
+                $$=nod;
+              }  
 ;
+
+ARRAY: ARRAY coma llavei LISTA_FILA llaved
+        {
+            $$=$1;
+            $$->add(*$4);
+        } 
+     |llavei LISTA_FILA llaved
+        {
+            $$ =  new NodoAST(@1.first_line, @1.first_column,"Array","");
+            $$->add(*$2);
+        } 
+;
+
+LISTA_FILA: LISTA_FILA coma CONT_VALOR
+            {
+              $$=$1;
+              $$->add(*$3);
+            } 
+          | CONT_VALOR
+            {
+              $$ =  new NodoAST(@1.first_line, @1.first_column,"Fila","");
+              $$->add(*$1);
+            }
+;
+
 
 LISTA_DIMENSION: LISTA_DIMENSION cori CONT_VALOR cord
                   {
@@ -124,7 +280,6 @@ LISTA_DIMENSION: LISTA_DIMENSION cori CONT_VALOR cord
                     $$->add(*$2);
                   }       
 ;
-
 
 
 
@@ -240,8 +395,8 @@ CONT_VALOR: CONT_VALOR tk_and CONT_VALOR
                 NodoAST *nod = new NodoAST(@2.first_line, @2.first_column,"potencia",$2); 
                 nod->add(*$1); nod->add(*$3); $$=nod;
             }
-          | menos CONT_VALOR
-                { $$ = new NodoAST(@1.first_line, @1.first_column,$1,$1); $$->add(*$2);}
+          | menos CONT_VALOR %prec UMINUS
+                { $$ = new NodoAST(@1.first_line, @1.first_column,"menos",$1); $$->add(*$2);}
           | pari CONT_VALOR pard
             {$$=$2;}
           | VALOR
@@ -249,7 +404,7 @@ CONT_VALOR: CONT_VALOR tk_and CONT_VALOR
 ;          
 
 VALOR: identificador
-        { $$ = new NodoAST(@1.first_line, @1.first_column,"identificador",$1);}
+        { $$ = new NodoAST(@1.first_line, @1.first_column,"iden",$1);}
      |  cadena
         { $$ = new NodoAST(@1.first_line, @1.first_column,"cadena",$1);}
      |  entero
@@ -260,6 +415,11 @@ VALOR: identificador
         { $$ = new NodoAST(@1.first_line, @1.first_column,"boleano",$1);}
      |  caracter
         { $$ = new NodoAST(@1.first_line, @1.first_column,"char",$1);}
+     | identificador LISTA_DIMENSION   
+      {
+         $$ = new NodoAST(@1.first_line, @1.first_column,"iden",$1);
+         $$->add(*$2);
+      }
 ;     
 
 
