@@ -159,11 +159,7 @@ CUERPO: LISTA_DECLARACION
         | LISTA_REPETIR
           {
             $$=$1;
-          }  
-        | LISTA_AUMENTO  
-          {
-            $$=$1;
-          }
+          } 
 ;
 
 
@@ -328,11 +324,10 @@ LISTA_ASIGNACION: LISTA_ASIGNACION ASIGNACION
                   }
 ;
 
-ASIGNACION: LISTA_VAR tk_igual CONT_VALOR puntocoma
+ASIGNACION: LISTA_VAR  puntocoma
             {
                 NodoAST *nod = new NodoAST(@1.first_line, @1.first_column,"ASIGNACION",""); 
                 nod->add(*$1); 
-                nod->add(*$3);
                 $$=nod;
             }
 
@@ -350,12 +345,8 @@ LISTA_VAR: LISTA_VAR tk_igual VAR
             }
 ;
 
-VAR: identificador
-      { $$ = new NodoAST(@1.first_line, @1.first_column,"iden",$1);}
-   | identificador LISTA_DIMENSION 
-      {
-         $$ = new NodoAST(@1.first_line, @1.first_column,"iden",$1);
-         $$->add(*$2);
+VAR: CONT_VALOR
+      { $$ = $1;
       }
 ;
 
