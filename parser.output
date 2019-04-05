@@ -1,0 +1,1244 @@
+Terminales no usados en la gramática
+
+   tk_not
+   aumento
+   decremento
+   cori
+   cord
+
+
+Estado 26 conflictos: 8 desplazamiento/reducción
+Estado 42 conflictos: 13 desplazamiento/reducción
+Estado 43 conflictos: 13 desplazamiento/reducción
+Estado 44 conflictos: 13 desplazamiento/reducción
+Estado 45 conflictos: 13 desplazamiento/reducción
+Estado 46 conflictos: 13 desplazamiento/reducción
+Estado 47 conflictos: 13 desplazamiento/reducción
+Estado 48 conflictos: 13 desplazamiento/reducción
+Estado 49 conflictos: 13 desplazamiento/reducción
+Estado 50 conflictos: 8 desplazamiento/reducción
+Estado 51 conflictos: 8 desplazamiento/reducción
+Estado 52 conflictos: 8 desplazamiento/reducción
+Estado 53 conflictos: 8 desplazamiento/reducción
+Estado 54 conflictos: 8 desplazamiento/reducción
+
+
+Gramática
+
+    0 $accept: INICIO $end
+
+    1 INICIO: DECLARACION
+
+    2 DECLARACION: TIPO_DATO LISTA_ID tk_igual CONT_VALOR puntocoma
+
+    3 TIPO_DATO: tk_string
+    4          | tk_bool
+    5          | tk_int
+    6          | tk_double
+    7          | tk_char
+
+    8 LISTA_ID: LISTA_ID coma identificador
+    9         | identificador
+
+   10 CONT_VALOR: CONT_VALOR tk_and CONT_VALOR
+   11           | CONT_VALOR tk_or CONT_VALOR
+   12           | CONT_VALOR tk_mayorque CONT_VALOR
+   13           | CONT_VALOR tk_menorque CONT_VALOR
+   14           | CONT_VALOR tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR tk_menorigual CONT_VALOR
+   16           | CONT_VALOR tk_igualacion CONT_VALOR
+   17           | CONT_VALOR tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR suma CONT_VALOR
+   19           | CONT_VALOR menos CONT_VALOR
+   20           | CONT_VALOR multi CONT_VALOR
+   21           | CONT_VALOR division CONT_VALOR
+   22           | CONT_VALOR potencia CONT_VALOR
+   23           | menos CONT_VALOR
+   24           | pari CONT_VALOR pard
+   25           | VALOR
+
+   26 VALOR: identificador
+   27      | cadena
+   28      | entero
+   29      | decimal
+   30      | booleano
+   31      | caracter
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+error (256)
+tk_int (258) 5
+tk_double (259) 6
+tk_bool (260) 4
+tk_char (261) 7
+tk_string (262) 3
+tk_not (263)
+tk_igual (264) 2
+tk_menorque (265) 13
+tk_mayorque (266) 12
+tk_or (267) 11
+tk_and (268) 10
+tk_igualacion (269) 16
+tk_diferenciacion (270) 17
+tk_menorigual (271) 15
+tk_mayorigual (272) 14
+aumento (273)
+decremento (274)
+cori (275)
+cord (276)
+coma (277) 8
+identificador (278) 8 9 26
+entero (279) 28
+decimal (280) 29
+caracter (281) 31
+booleano (282) 30
+cadena (283) 27
+pari (284) 24
+pard (285) 24
+suma (286) 18
+menos (287) 19 23
+multi (288) 20
+division (289) 21
+potencia (290) 22
+puntocoma (291) 2
+
+
+No terminales con las reglas donde aparecen
+
+$accept (37)
+    en la izquierda: 0
+INICIO (38)
+    en la izquierda: 1, en la derecha: 0
+DECLARACION (39)
+    en la izquierda: 2, en la derecha: 1
+TIPO_DATO (40)
+    en la izquierda: 3 4 5 6 7, en la derecha: 2
+LISTA_ID (41)
+    en la izquierda: 8 9, en la derecha: 2 8
+CONT_VALOR (42)
+    en la izquierda: 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25,
+    en la derecha: 2 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+VALOR (43)
+    en la izquierda: 26 27 28 29 30 31, en la derecha: 25
+
+
+Estado 0
+
+    0 $accept: . INICIO $end
+
+    tk_int     desplazar e ir al estado 1
+    tk_double  desplazar e ir al estado 2
+    tk_bool    desplazar e ir al estado 3
+    tk_char    desplazar e ir al estado 4
+    tk_string  desplazar e ir al estado 5
+
+    INICIO       ir al estado 6
+    DECLARACION  ir al estado 7
+    TIPO_DATO    ir al estado 8
+
+
+Estado 1
+
+    5 TIPO_DATO: tk_int .
+
+    $default  reduce usando la regla 5 (TIPO_DATO)
+
+
+Estado 2
+
+    6 TIPO_DATO: tk_double .
+
+    $default  reduce usando la regla 6 (TIPO_DATO)
+
+
+Estado 3
+
+    4 TIPO_DATO: tk_bool .
+
+    $default  reduce usando la regla 4 (TIPO_DATO)
+
+
+Estado 4
+
+    7 TIPO_DATO: tk_char .
+
+    $default  reduce usando la regla 7 (TIPO_DATO)
+
+
+Estado 5
+
+    3 TIPO_DATO: tk_string .
+
+    $default  reduce usando la regla 3 (TIPO_DATO)
+
+
+Estado 6
+
+    0 $accept: INICIO . $end
+
+    $end  desplazar e ir al estado 9
+
+
+Estado 7
+
+    1 INICIO: DECLARACION .
+
+    $default  reduce usando la regla 1 (INICIO)
+
+
+Estado 8
+
+    2 DECLARACION: TIPO_DATO . LISTA_ID tk_igual CONT_VALOR puntocoma
+
+    identificador  desplazar e ir al estado 10
+
+    LISTA_ID  ir al estado 11
+
+
+Estado 9
+
+    0 $accept: INICIO $end .
+
+    $default  aceptar
+
+
+Estado 10
+
+    9 LISTA_ID: identificador .
+
+    $default  reduce usando la regla 9 (LISTA_ID)
+
+
+Estado 11
+
+    2 DECLARACION: TIPO_DATO LISTA_ID . tk_igual CONT_VALOR puntocoma
+    8 LISTA_ID: LISTA_ID . coma identificador
+
+    tk_igual  desplazar e ir al estado 12
+    coma      desplazar e ir al estado 13
+
+
+Estado 12
+
+    2 DECLARACION: TIPO_DATO LISTA_ID tk_igual . CONT_VALOR puntocoma
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 22
+    VALOR       ir al estado 23
+
+
+Estado 13
+
+    8 LISTA_ID: LISTA_ID coma . identificador
+
+    identificador  desplazar e ir al estado 24
+
+
+Estado 14
+
+   26 VALOR: identificador .
+
+    $default  reduce usando la regla 26 (VALOR)
+
+
+Estado 15
+
+   28 VALOR: entero .
+
+    $default  reduce usando la regla 28 (VALOR)
+
+
+Estado 16
+
+   29 VALOR: decimal .
+
+    $default  reduce usando la regla 29 (VALOR)
+
+
+Estado 17
+
+   31 VALOR: caracter .
+
+    $default  reduce usando la regla 31 (VALOR)
+
+
+Estado 18
+
+   30 VALOR: booleano .
+
+    $default  reduce usando la regla 30 (VALOR)
+
+
+Estado 19
+
+   27 VALOR: cadena .
+
+    $default  reduce usando la regla 27 (VALOR)
+
+
+Estado 20
+
+   24 CONT_VALOR: pari . CONT_VALOR pard
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 25
+    VALOR       ir al estado 23
+
+
+Estado 21
+
+   23 CONT_VALOR: menos . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 26
+    VALOR       ir al estado 23
+
+
+Estado 22
+
+    2 DECLARACION: TIPO_DATO LISTA_ID tk_igual CONT_VALOR . puntocoma
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    suma               desplazar e ir al estado 35
+    menos              desplazar e ir al estado 36
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+    puntocoma          desplazar e ir al estado 40
+
+
+Estado 23
+
+   25 CONT_VALOR: VALOR .
+
+    $default  reduce usando la regla 25 (CONT_VALOR)
+
+
+Estado 24
+
+    8 LISTA_ID: LISTA_ID coma identificador .
+
+    $default  reduce usando la regla 8 (LISTA_ID)
+
+
+Estado 25
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+   24           | pari CONT_VALOR . pard
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    pard               desplazar e ir al estado 41
+    suma               desplazar e ir al estado 35
+    menos              desplazar e ir al estado 36
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+
+Estado 26
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+   23           | menos CONT_VALOR .
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 23 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 23 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 23 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 23 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 23 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 23 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 23 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 23 (CONT_VALOR)]
+    $default           reduce usando la regla 23 (CONT_VALOR)
+
+
+Estado 27
+
+   13 CONT_VALOR: CONT_VALOR tk_menorque . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 42
+    VALOR       ir al estado 23
+
+
+Estado 28
+
+   12 CONT_VALOR: CONT_VALOR tk_mayorque . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 43
+    VALOR       ir al estado 23
+
+
+Estado 29
+
+   11 CONT_VALOR: CONT_VALOR tk_or . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 44
+    VALOR       ir al estado 23
+
+
+Estado 30
+
+   10 CONT_VALOR: CONT_VALOR tk_and . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 45
+    VALOR       ir al estado 23
+
+
+Estado 31
+
+   16 CONT_VALOR: CONT_VALOR tk_igualacion . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 46
+    VALOR       ir al estado 23
+
+
+Estado 32
+
+   17 CONT_VALOR: CONT_VALOR tk_diferenciacion . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 47
+    VALOR       ir al estado 23
+
+
+Estado 33
+
+   15 CONT_VALOR: CONT_VALOR tk_menorigual . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 48
+    VALOR       ir al estado 23
+
+
+Estado 34
+
+   14 CONT_VALOR: CONT_VALOR tk_mayorigual . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 49
+    VALOR       ir al estado 23
+
+
+Estado 35
+
+   18 CONT_VALOR: CONT_VALOR suma . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 50
+    VALOR       ir al estado 23
+
+
+Estado 36
+
+   19 CONT_VALOR: CONT_VALOR menos . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 51
+    VALOR       ir al estado 23
+
+
+Estado 37
+
+   20 CONT_VALOR: CONT_VALOR multi . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 52
+    VALOR       ir al estado 23
+
+
+Estado 38
+
+   21 CONT_VALOR: CONT_VALOR division . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 53
+    VALOR       ir al estado 23
+
+
+Estado 39
+
+   22 CONT_VALOR: CONT_VALOR potencia . CONT_VALOR
+
+    identificador  desplazar e ir al estado 14
+    entero         desplazar e ir al estado 15
+    decimal        desplazar e ir al estado 16
+    caracter       desplazar e ir al estado 17
+    booleano       desplazar e ir al estado 18
+    cadena         desplazar e ir al estado 19
+    pari           desplazar e ir al estado 20
+    menos          desplazar e ir al estado 21
+
+    CONT_VALOR  ir al estado 54
+    VALOR       ir al estado 23
+
+
+Estado 40
+
+    2 DECLARACION: TIPO_DATO LISTA_ID tk_igual CONT_VALOR puntocoma .
+
+    $default  reduce usando la regla 2 (DECLARACION)
+
+
+Estado 41
+
+   24 CONT_VALOR: pari CONT_VALOR pard .
+
+    $default  reduce usando la regla 24 (CONT_VALOR)
+
+
+Estado 42
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   13           | CONT_VALOR tk_menorque CONT_VALOR .
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    suma               desplazar e ir al estado 35
+    menos              desplazar e ir al estado 36
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 13 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 13 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 13 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 13 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 13 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 13 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 13 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 13 (CONT_VALOR)]
+    suma               [reduce usando la regla 13 (CONT_VALOR)]
+    menos              [reduce usando la regla 13 (CONT_VALOR)]
+    multi              [reduce usando la regla 13 (CONT_VALOR)]
+    division           [reduce usando la regla 13 (CONT_VALOR)]
+    potencia           [reduce usando la regla 13 (CONT_VALOR)]
+    $default           reduce usando la regla 13 (CONT_VALOR)
+
+
+Estado 43
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   12           | CONT_VALOR tk_mayorque CONT_VALOR .
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    suma               desplazar e ir al estado 35
+    menos              desplazar e ir al estado 36
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 12 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 12 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 12 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 12 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 12 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 12 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 12 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 12 (CONT_VALOR)]
+    suma               [reduce usando la regla 12 (CONT_VALOR)]
+    menos              [reduce usando la regla 12 (CONT_VALOR)]
+    multi              [reduce usando la regla 12 (CONT_VALOR)]
+    division           [reduce usando la regla 12 (CONT_VALOR)]
+    potencia           [reduce usando la regla 12 (CONT_VALOR)]
+    $default           reduce usando la regla 12 (CONT_VALOR)
+
+
+Estado 44
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   11           | CONT_VALOR tk_or CONT_VALOR .
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    suma               desplazar e ir al estado 35
+    menos              desplazar e ir al estado 36
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 11 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 11 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 11 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 11 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 11 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 11 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 11 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 11 (CONT_VALOR)]
+    suma               [reduce usando la regla 11 (CONT_VALOR)]
+    menos              [reduce usando la regla 11 (CONT_VALOR)]
+    multi              [reduce usando la regla 11 (CONT_VALOR)]
+    division           [reduce usando la regla 11 (CONT_VALOR)]
+    potencia           [reduce usando la regla 11 (CONT_VALOR)]
+    $default           reduce usando la regla 11 (CONT_VALOR)
+
+
+Estado 45
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   10           | CONT_VALOR tk_and CONT_VALOR .
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    suma               desplazar e ir al estado 35
+    menos              desplazar e ir al estado 36
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 10 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 10 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 10 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 10 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 10 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 10 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 10 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 10 (CONT_VALOR)]
+    suma               [reduce usando la regla 10 (CONT_VALOR)]
+    menos              [reduce usando la regla 10 (CONT_VALOR)]
+    multi              [reduce usando la regla 10 (CONT_VALOR)]
+    division           [reduce usando la regla 10 (CONT_VALOR)]
+    potencia           [reduce usando la regla 10 (CONT_VALOR)]
+    $default           reduce usando la regla 10 (CONT_VALOR)
+
+
+Estado 46
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   16           | CONT_VALOR tk_igualacion CONT_VALOR .
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    suma               desplazar e ir al estado 35
+    menos              desplazar e ir al estado 36
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 16 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 16 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 16 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 16 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 16 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 16 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 16 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 16 (CONT_VALOR)]
+    suma               [reduce usando la regla 16 (CONT_VALOR)]
+    menos              [reduce usando la regla 16 (CONT_VALOR)]
+    multi              [reduce usando la regla 16 (CONT_VALOR)]
+    division           [reduce usando la regla 16 (CONT_VALOR)]
+    potencia           [reduce usando la regla 16 (CONT_VALOR)]
+    $default           reduce usando la regla 16 (CONT_VALOR)
+
+
+Estado 47
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   17           | CONT_VALOR tk_diferenciacion CONT_VALOR .
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    suma               desplazar e ir al estado 35
+    menos              desplazar e ir al estado 36
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 17 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 17 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 17 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 17 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 17 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 17 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 17 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 17 (CONT_VALOR)]
+    suma               [reduce usando la regla 17 (CONT_VALOR)]
+    menos              [reduce usando la regla 17 (CONT_VALOR)]
+    multi              [reduce usando la regla 17 (CONT_VALOR)]
+    division           [reduce usando la regla 17 (CONT_VALOR)]
+    potencia           [reduce usando la regla 17 (CONT_VALOR)]
+    $default           reduce usando la regla 17 (CONT_VALOR)
+
+
+Estado 48
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   15           | CONT_VALOR tk_menorigual CONT_VALOR .
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    suma               desplazar e ir al estado 35
+    menos              desplazar e ir al estado 36
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 15 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 15 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 15 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 15 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 15 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 15 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 15 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 15 (CONT_VALOR)]
+    suma               [reduce usando la regla 15 (CONT_VALOR)]
+    menos              [reduce usando la regla 15 (CONT_VALOR)]
+    multi              [reduce usando la regla 15 (CONT_VALOR)]
+    division           [reduce usando la regla 15 (CONT_VALOR)]
+    potencia           [reduce usando la regla 15 (CONT_VALOR)]
+    $default           reduce usando la regla 15 (CONT_VALOR)
+
+
+Estado 49
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   14           | CONT_VALOR tk_mayorigual CONT_VALOR .
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    suma               desplazar e ir al estado 35
+    menos              desplazar e ir al estado 36
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 14 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 14 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 14 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 14 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 14 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 14 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 14 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 14 (CONT_VALOR)]
+    suma               [reduce usando la regla 14 (CONT_VALOR)]
+    menos              [reduce usando la regla 14 (CONT_VALOR)]
+    multi              [reduce usando la regla 14 (CONT_VALOR)]
+    division           [reduce usando la regla 14 (CONT_VALOR)]
+    potencia           [reduce usando la regla 14 (CONT_VALOR)]
+    $default           reduce usando la regla 14 (CONT_VALOR)
+
+
+Estado 50
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   18           | CONT_VALOR suma CONT_VALOR .
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 18 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 18 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 18 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 18 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 18 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 18 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 18 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 18 (CONT_VALOR)]
+    $default           reduce usando la regla 18 (CONT_VALOR)
+
+
+Estado 51
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   19           | CONT_VALOR menos CONT_VALOR .
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    multi              desplazar e ir al estado 37
+    division           desplazar e ir al estado 38
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 19 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 19 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 19 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 19 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 19 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 19 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 19 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 19 (CONT_VALOR)]
+    $default           reduce usando la regla 19 (CONT_VALOR)
+
+
+Estado 52
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   20           | CONT_VALOR multi CONT_VALOR .
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 20 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 20 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 20 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 20 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 20 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 20 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 20 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 20 (CONT_VALOR)]
+    $default           reduce usando la regla 20 (CONT_VALOR)
+
+
+Estado 53
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   21           | CONT_VALOR division CONT_VALOR .
+   22           | CONT_VALOR . potencia CONT_VALOR
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+    potencia           desplazar e ir al estado 39
+
+    tk_menorque        [reduce usando la regla 21 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 21 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 21 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 21 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 21 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 21 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 21 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 21 (CONT_VALOR)]
+    $default           reduce usando la regla 21 (CONT_VALOR)
+
+
+Estado 54
+
+   10 CONT_VALOR: CONT_VALOR . tk_and CONT_VALOR
+   11           | CONT_VALOR . tk_or CONT_VALOR
+   12           | CONT_VALOR . tk_mayorque CONT_VALOR
+   13           | CONT_VALOR . tk_menorque CONT_VALOR
+   14           | CONT_VALOR . tk_mayorigual CONT_VALOR
+   15           | CONT_VALOR . tk_menorigual CONT_VALOR
+   16           | CONT_VALOR . tk_igualacion CONT_VALOR
+   17           | CONT_VALOR . tk_diferenciacion CONT_VALOR
+   18           | CONT_VALOR . suma CONT_VALOR
+   19           | CONT_VALOR . menos CONT_VALOR
+   20           | CONT_VALOR . multi CONT_VALOR
+   21           | CONT_VALOR . division CONT_VALOR
+   22           | CONT_VALOR . potencia CONT_VALOR
+   22           | CONT_VALOR potencia CONT_VALOR .
+
+    tk_menorque        desplazar e ir al estado 27
+    tk_mayorque        desplazar e ir al estado 28
+    tk_or              desplazar e ir al estado 29
+    tk_and             desplazar e ir al estado 30
+    tk_igualacion      desplazar e ir al estado 31
+    tk_diferenciacion  desplazar e ir al estado 32
+    tk_menorigual      desplazar e ir al estado 33
+    tk_mayorigual      desplazar e ir al estado 34
+
+    tk_menorque        [reduce usando la regla 22 (CONT_VALOR)]
+    tk_mayorque        [reduce usando la regla 22 (CONT_VALOR)]
+    tk_or              [reduce usando la regla 22 (CONT_VALOR)]
+    tk_and             [reduce usando la regla 22 (CONT_VALOR)]
+    tk_igualacion      [reduce usando la regla 22 (CONT_VALOR)]
+    tk_diferenciacion  [reduce usando la regla 22 (CONT_VALOR)]
+    tk_menorigual      [reduce usando la regla 22 (CONT_VALOR)]
+    tk_mayorigual      [reduce usando la regla 22 (CONT_VALOR)]
+    $default           reduce usando la regla 22 (CONT_VALOR)

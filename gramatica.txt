@@ -1,0 +1,50 @@
+
+DECLARACION: TIPO_DATO LISTA_ID tk_igual CONT_VALOR
+;
+
+
+
+
+TIPO_DATO: tk_string
+         | tk_bool
+         | tk_int
+         | tk_double
+         | tk_char
+;
+
+
+
+
+LISTA_ID: LISTA_ID coma identificador
+        | identificador
+;
+
+
+
+CONT_VALOR: CONT_VALOR tk_and CONT_VALOR
+          | CONT_VALOR tk_or  CONT_VALOR
+
+          | CONT_VALOR tk_mayorque CONT_VALOR
+          | CONT_VALOR tk_menorque CONT_VALOR
+          | CONT_VALOR tk_mayorigual CONT_VALOR
+          | CONT_VALOR tk_menorigual CONT_VALOR
+          | CONT_VALOR tk_igualacion CONT_VALOR
+          | CONT_VALOR tk_diferenciacion CONT_VALOR
+
+          | CONT_VALOR suma CONT_VALOR
+          | CONT_VALOR menos CONT_VALOR
+          | CONT_VALOR multi CONT_VALOR
+          | CONT_VALOR division CONT_VALOR
+          | CONT_VALOR potencia CONT_VALOR
+          | menos CONT_VALOR
+          | pari CONT_VALOR pard
+          | VALOR
+;          
+
+VALOR: identificador
+     |  cadena
+     |  entero
+     |  decimal
+     |  booleano
+     |  caracter
+;     
