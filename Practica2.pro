@@ -31,8 +31,9 @@ SOURCES += \
     scanner.cpp \
     graficador.cpp \
     NodoAST.cpp \
-    primerRecorrido.cpp \
-    resultado.cpp
+    resultado.cpp \
+    accion.cpp \
+    variables.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,8 +41,9 @@ HEADERS += \
     scanner.h \
     graficador.h \
     NodoAST.h \
-    primerrecorrido.h \
-    resultado.h
+    resultado.h \
+    accion.h \
+    variables.h
 
 FORMS += \
         mainwindow.ui

@@ -59,7 +59,7 @@
         <x>0</x>
         <y>0</y>
         <width>761</width>
-        <height>141</height>
+        <height>131</height>
        </rect>
       </property>
      </widget>
@@ -96,8 +96,17 @@
     <addaction name="actionReporte_Errores"/>
     <addaction name="actionGenerar_AST"/>
    </widget>
+   <widget class="QMenu" name="menuAcerca_De">
+    <property name="title">
+     <string>Acerca De</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionManual_Tecnico"/>
+    <addaction name="actionManual_Usuario"/>
+   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuErrores"/>
+   <addaction name="menuAcerca_De"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -136,6 +145,16 @@
   <action name="actionGenerar_AST">
    <property name="text">
     <string>Generar AST</string>
+   </property>
+  </action>
+  <action name="actionManual_Tecnico">
+   <property name="text">
+    <string>Manual Tecnico</string>
+   </property>
+  </action>
+  <action name="actionManual_Usuario">
+   <property name="text">
+    <string>Manual Usuario</string>
    </property>
   </action>
  </widget>

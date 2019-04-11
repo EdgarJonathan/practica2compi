@@ -74,7 +74,7 @@ void graficador:: generarImagen()
         qFile.close();
     }
     //"dot -Tjpg " + fileName + " -o " + fileName.Replace(".txt", ".jpg")
-    QString cadenaComando = "dot -Tjpg " + path + "grafo.txt -o " + path+"grafo.jpg ";
+    QString cadenaComando = "dot -Tsvg " + path + "grafo.txt -o " + path+"grafo.svg ";
     std::cout << cadenaComando.toStdString() << "\n" <<std::endl;
 
     system(cadenaComando.toUtf8().constData());

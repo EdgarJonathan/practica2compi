@@ -12,6 +12,7 @@
 #include <graficador.h> // Graficador
 
 #include <QMainWindow>
+#include <primerrecorrido.h>
 
 
 extern int yyparse(); //
@@ -42,6 +43,10 @@ private slots:
     bool on_actionGuardar_Archivo_triggered();
 
     void on_pushButton_clicked();
+
+    void on_actionManual_Tecnico_triggered();
+
+    void on_actionManual_Usuario_triggered();
 
 private:
     Ui::MainWindow *ui;

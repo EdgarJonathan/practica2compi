@@ -88,7 +88,9 @@ extern int yydebug;
     tk_else = 298,
     tk_para = 299,
     tk_repetir = 300,
-    UMINUS = 301
+    tk_public = 301,
+    tk_main = 302,
+    UMINUS = 303
   };
 #endif
 
@@ -106,7 +108,7 @@ class NodoAST *nodito;
 
 
 
-#line 110 "parser.h" /* yacc.c:1909  */
+#line 112 "parser.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

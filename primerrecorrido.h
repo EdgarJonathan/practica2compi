@@ -3,6 +3,8 @@
 #include <qstring.h>
 #include <resultado.h>
 #include <NodoAST.h>
+#include <accion.h>
+
 class primerRecorrido
 {
 public:

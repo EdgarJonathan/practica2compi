@@ -128,12 +128,12 @@ bool MainWindow::on_actionGuardar_Archivo_triggered()
     }else {
        return saveFile();
     }
-
 }
 
 void MainWindow::on_pushButton_clicked()
 {
 
+    ui->textoConsola->setPlainText("");
     QString programa = ui->textoEntrada->toPlainText();
 
     YY_BUFFER_STATE buffer = yy_scan_string(programa.toUtf8().constData());
@@ -149,9 +149,20 @@ void MainWindow::on_pushButton_clicked()
         graficador *graf = new graficador(raiz);
         graf->generarImagen();
         /*Instanciamos nuestro interprete y le enviamos nuestro arbol para ejecutarse.*/
-      /*  primerRecorrido * interprete = new primerRecorrido();
-        interprete->recorrer(raiz);
-        ui->txtOutput->setText(interprete->resultado);*/
+        accion * interprete = new accion();
+        interprete->init(raiz);
+        ui->textoConsola->setPlainText(interprete->resultado);
     }
 
+}
+
+void MainWindow::on_actionManual_Tecnico_triggered()
+{
+
+ system("xdg-open  /home/jonathan/Escritorio/Manuales/ManualTecnico.pdf");
+}
+
+void MainWindow::on_actionManual_Usuario_triggered()
+{
+     system("xdg-open   /home/jonathan/Escritorio/Manuales/ManualUsuario.pdf");
 }

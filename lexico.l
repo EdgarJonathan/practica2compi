@@ -45,6 +45,10 @@ INITIAL
 "<-" {  BEGIN COMM; }
 
 
+"public"     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_public; }
+"main()"     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_main; }
+
+
 "int"        {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_int; }
 "double"     {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_double; }   
 "bool"       {   columna=columna+ anterior;  anterior = strlen(yytext);strcpy(yylval.TEXT, yytext); return tk_bool; } 
@@ -118,8 +122,8 @@ INITIAL
 }
 
 
-<COMM>"*/" { BEGIN INITIAL; }
-<COMM>"->" {linea++;};
+<COMM>"->" { BEGIN INITIAL; }
+<COMM>"\n" {linea++;};
 <COMM>.;
 <COMM><<EOF>> { yyerror("unclosed comment"); }
 <COM>"\n" { linea++; columna = 0; BEGIN INITIAL; };
